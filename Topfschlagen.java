@@ -2,12 +2,13 @@ public class Topfschlagen
 {
 	static boolean[][] arr;
 	
-	public static int Orakel(int i1, int j1, int i2, int j2)
+	public static int Orakel(boolean[][] arr, int i1, int j1, int i2, int j2)
 	{
-		for(int i = i1; i < arr.length; i++)
+		for(int i = i1; i >= i2; i--)
 		{
-			for(int j = j1 ; j < arr[i2].length; j++)
+			for(int j = j1 ; j <= j2; j++)
 			{
+				System.out.println(i + " "+ j);
 				if(arr[i][j])
 				{
 					return 1;
@@ -19,7 +20,7 @@ public class Topfschlagen
 	
 	public static int[] search(boolean[][] arr, int i1, int j1, int i2, int j2)
 	{
-		if(arr.length == 1 && arr[i1].length == 1)
+		if(arr[i1][j1])
 		{
 			int[] result = {i1, j1};
 			return result;
@@ -28,7 +29,7 @@ public class Topfschlagen
 		{
 			if(arr.length%2 == 0)
 			{
-				if(Orakel(arr.length/2-1,j1,i2,j2)==1)
+				if(Orakel(arr,arr.length/2-1,j1,i2,j2)==1)
 				{
 					return search(arr, arr.length/2-1, j1, i2, j2);
 				}
@@ -39,7 +40,7 @@ public class Topfschlagen
 			}
 			else
 			{
-				if(Orakel(i1,arr[i1].length/2-1,i2,j2)==1)
+				if(Orakel(arr,i1,arr[i1].length/2-1,i2,j2)==1)
 				{
 					return search(arr, i1,arr[i1].length/2-1,i2,j2);
 				}
@@ -53,7 +54,7 @@ public class Topfschlagen
 	
 	public static void main(String[] args)
 	{
-		arr = new boolean[8][8];
+		arr = new boolean[4][4];
 		for(int i = 0; i < arr.length; i++)
 		{
 			for(int j = 0; j < arr[i].length; j++)
@@ -61,7 +62,9 @@ public class Topfschlagen
 				arr[i][j] = false;
 			}
 		}
-		arr[1][1] = true;
-		search(arr,7,0,0,7);
+		arr[3][0] = true;
+		//System.out.println(Orakel(arr,3,0,0,1));
+		int[] res = search(arr,3,0,0,3);
+		System.out.println(res[0] + " " + res[1]);
 	}
 }
